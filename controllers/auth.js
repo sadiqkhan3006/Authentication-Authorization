@@ -75,15 +75,21 @@ exports.login = async (req, res) => {
       user.token = token;
       user.password = undefined;
       const options = {
-        expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
+        expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000), // 3days=> 3 * 24 * 60 * 60 * 1000
         httpOnly: true,
       };
-      res.cookie("toke", token, options).status(200).json({
+      res.cookie("token", token, options).status(200).json({
         success: true,
         token,
         user,
         message: "user Logged in successfully",
       });
+      // res.json({
+      //   success: true,
+      //   token,
+      //   user,
+      //   message: "user Logged in successfully",
+      // });
     } else {
       return res.status(403).json({
         success: false,
